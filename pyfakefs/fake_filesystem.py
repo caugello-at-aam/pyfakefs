@@ -2227,6 +2227,7 @@ class FakeFilesystem:
         encoding: Optional[str] = None,
         errors: Optional[str] = None,
         side_effect: Optional[Callable] = None,
+        initial_time: Optional[float] = None,
     ) -> FakeFile:
         """Create `file_path`, including all the parent directories along
         the way, and return the created
@@ -2250,6 +2251,7 @@ class FakeFilesystem:
             errors: The error mode used for encoding/decoding errors.
             side_effect: function handle that is executed when the file is written,
                 must accept the file object as an argument.
+            initial_time: The initial created time of the file.
 
         Returns:
             The newly created :py:class:`FakeFile<pyfakefs.fake_file.FakeFile>` object.
@@ -2268,6 +2270,7 @@ class FakeFilesystem:
             encoding,
             errors,
             side_effect=side_effect,
+            initial_time=initial_time,
         )
 
     def add_real_file(
@@ -2503,6 +2506,7 @@ class FakeFilesystem:
         errors: Optional[str] = None,
         read_from_real_fs: bool = False,
         side_effect: Optional[Callable] = None,
+        initial_time: Optional[float]= None,
     ) -> FakeFile:
         """Internal fake file creator that supports both normal fake files
         and fake files based on real files.
@@ -2563,6 +2567,7 @@ class FakeFilesystem:
                 encoding=encoding,
                 errors=errors,
                 side_effect=side_effect,
+                initial_time=initial_time,
             )
 
         self.add_object(parent_directory, file_object)

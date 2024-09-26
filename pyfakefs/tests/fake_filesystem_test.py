@@ -139,6 +139,14 @@ class FakeDirectoryUnitTest(TestCase):
         self.fake_file.size = 13
         self.assertEqual("dummy_file\0\0\0", self.fake_file.contents)
 
+    def test_with_initial_time(self):
+        filesystem = fake_filesystem.FakeFilesystem(path_separator="/")
+        file_path = "some_file1"
+
+        fake_file = filesystem.create_file(file_path, contents="contents here1", initial_time=100)
+        
+        self.assertEqual(100, fake_file.st_mtime)
+
     def test_set_m_time(self):
         self.assertEqual(10, self.fake_file.st_mtime)
         self.fake_file.st_mtime = 14

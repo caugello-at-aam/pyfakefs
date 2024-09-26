@@ -141,6 +141,7 @@ class FakeFile:
         errors: Optional[str] = None,
         side_effect: Optional[Callable[["FakeFile"], None]] = None,
         open_modes: Optional[_OpenModes] = None,
+        initial_time: Optional[float] = None,
     ):
         """
         Args:
@@ -160,6 +161,8 @@ class FakeFile:
             side_effect: function handle that is executed when file is written,
                 must accept the file object as an argument.
             open_modes: The modes the file was opened with (e.g. can read, write etc.)
+            initial_time: The initial time that the file was created, otherwise uses
+                current time.
         """
         # to be backwards compatible regarding argument order, we raise on None
         if filesystem is None:
@@ -171,7 +174,7 @@ class FakeFile:
             filesystem.is_windows_fs,
             helpers.get_uid(),
             helpers.get_gid(),
-            helpers.now(),
+            helpers.now() if initial_time is None else initial_time,
         )
         if st_mode >> 12 == 0:
             st_mode |= S_IFREG

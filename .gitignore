@@ -13,6 +13,7 @@
 # pytest
 .cache/
 .pytest_cache/
+report.txt
 
 # autodoc created by sphinx
 gh-pages/
